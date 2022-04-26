@@ -1,11 +1,11 @@
-<form wire:submit.prevent="register">
-    {{-- <div>
+{{-- <form wire:submit.prevent="register">
+    <div>
         <label for="name">Name</label>
         <input wire:model="name" type="name" id="name" name="name">
         @error('name')
             <span class="text-red-500 text-sm">{{$message}}</span>
         @enderror
-    </div> --}}
+    </div>
     <div>
         <label for="email">Email</label>
         <input wire:model="email" type="email" id="email" name="email">
@@ -30,4 +30,12 @@
     <div>
         <input type="submit" value="Register">
     </div>
-</form>
+</form> --}}
+
+
+<div>
+    1.<input wire:model="name" type="text">
+    2.<input wire:model="adj" type="text">
+<br><br>
+    Hello <span class="underline">{{$name}}</span>, you are <span class="underline">{{$adj}}</span>
+</div>

@@ -10,15 +10,16 @@
     @livewireStyles
 
 </head>
-<body>
+<body class="bg-gray-200">
     <h1 class="text-3xl font-bold underline">
         Hello from Livewire
     </h1>
     <livewire:counter />
 
-    <h2 class="text-lg font-semibold">Standard Contact Form</h2>
+    <h2 class="text-lg font-semibold">Just saying hi</h2>
+<br><br>
 
-    <livewire:validation-form />
+    @livewire('auth.register', ['name'=>'Ryan', 'adj' => 'cool']) 
 
     @livewireScripts
 </body>

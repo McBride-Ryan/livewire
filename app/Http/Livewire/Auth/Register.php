@@ -3,30 +3,30 @@
 namespace App\Http\Livewire\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Register extends Component
 {
-    public $name = '';
-    public $email = '';
-    public $password = '';
-    public $passwordConfirmation = '';
+    public $name = 'Billy Bob Thorton';
+    public $adj = 'awesome';
 
-    public function register()
+    // On page load --> first item to render
+
+    // public function mount()
+    // {
+    //     $this->name = 'Foo';
+    // }
+
+    // DEPENDENCY INJECT INTO THE MOUNT METHOD
+    // You can also access the request from the inital pay load
+    // Using the request object and passing it in as a parameter it allows
+    //  the request to target the input with the wired 'name' variable
+
+    public function mount(Request $request, $name)
     {
-
-        $data = $this->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|same:passwordConfirmation',
-        ]);
-
-        User::create([
-            '$name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->name = $request->input('name', $name);
     }
 
     public function render()
