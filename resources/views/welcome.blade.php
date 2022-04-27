@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LiveWire Playground</title>
-    
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 
@@ -19,7 +19,7 @@
     <h2 class="text-lg font-semibold">Just saying hi</h2>
 <br><br>
 
-    @livewire('auth.register', ['name'=>'Ryan', 'adj' => 'cool']) 
+    @livewire('life-cycle', ['name'=>'Ryan', 'adj' => 'awesome blossom'])
 
     @livewireScripts
 </body>
