@@ -13,6 +13,18 @@ class ProjectsController extends Controller
         return view('projects.index', compact('projects'));
     }
 
+    // Route model binding allows you to auto inject that project
+    // associated with that wild card as a parameter into the show() method.
+    // Check the web.php /projects/{project}
+    public function show(Project $project)
+    {
+
+        // Before the Route/Model Binding --> Cool HUH!
+        // $project = Project::findOrFail(request('project'));
+        return view('projects.show', compact('project'));
+
+    }
+
     public function store()
     {
         // validate

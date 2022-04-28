@@ -26,6 +26,10 @@ Route::get('/register', function () {
     return view('index');
 });
 
+// This will link all of the projects on a single page
 Route::get('/projects', [ProjectsController::class,'index']);
+
+// This allows the page to render that is in question
+Route::get('/projects/{project}', [ProjectsController::class,'show']);
 
 Route::post('/projects', [ProjectsController::class,'store']);
