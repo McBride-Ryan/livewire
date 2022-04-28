@@ -20,10 +20,7 @@ class ProjectsTest extends TestCase
      */
     public function testUserCanBeRegister()
     {
-//        $this->withoutExceptionHandling();
-
         $attributes = [
-//           'title' => $this->faker->sentence,
             'email' => $this->faker->email
         ];
 
