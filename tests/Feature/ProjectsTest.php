@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -44,6 +45,22 @@ class ProjectsTest extends TestCase
         $this->assertEquals('ryan@test.com', auth()->user()->email);
 
     }
+
+    public function testEmailHasNotAlreadyBeenTakenWhileUserTypes()
+    {
+        User::create([
+            'email' => 'ryan@test.com',
+            'password' => Hash::make('password')
+        ]);
+
+        Livewire::test('auth.register')
+            ->set('email', 'rya@test.com')
+            ->assertHasNoErrors()
+            ->set('email', 'ryan@test.com')
+            ->assertHasErrors();
+    }
+
+
 
 
     public function testUserCanCreateProject()

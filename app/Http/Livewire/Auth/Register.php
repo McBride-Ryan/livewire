@@ -9,6 +9,21 @@ class Register extends Component
     public $password = '';
     public $passwordConfirmation = '';
 
+
+    public function updatedEmail()
+    {
+        // dd($field); messages out the field object -- email or password
+        // dd('hey');
+        $this->validate(['email'=>'unique:users']);
+    }
+
+    public function updatedPassword()
+    {
+        // dd($field); messages out the field object -- email or password
+        // dd('hey');
+        $this->validate(['password'=>'']);
+    }
+
     public function register()
     {
         $data = $this->validate([
