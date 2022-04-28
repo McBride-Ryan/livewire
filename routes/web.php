@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProjectsController;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Mail\ContactFormMailable;
 use Illuminate\Support\Facades\Mail;
@@ -23,3 +25,7 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('index');
 });
+
+Route::get('/projects', [ProjectsController::class,'index']);
+
+Route::post('/projects', [ProjectsController::class,'store']);
