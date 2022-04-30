@@ -103,4 +103,11 @@ class ProjectsTest extends TestCase
             ->assertSee($project->description);
     }
 
+    public function testsProjectRequiresOwner()
+    {
+//        $this->withoutExceptionHandling();
+        $attributes = Project::factory()->raw(['owner_id' => null]);
+        $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
+    }
+
 }

@@ -30,9 +30,11 @@ class ProjectsController extends Controller
         // validate
         $attributes = request()->validate([
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
+//        FYI all the tests will fail at this point because the $attributes is looking to require an owner_id
+        $attributes['owner_id'] = auth()->id();
 
         //persist
         Project::create($attributes);
