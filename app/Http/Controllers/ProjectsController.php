@@ -27,20 +27,30 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        // validate
+        // Validation
         $attributes = request()->validate([
             'title' => 'required',
             'description' => 'required',
         ]);
 
-//        FYI all the tests will fail at this point because the $attributes is looking to require an owner_id
+        // Excellent to separate the validation for Middleware purposes
+        // A User must be signed-in in order to make a project
         $attributes['owner_id'] = auth()->id();
 
-        //persist
-        Project::create($attributes);
+        // When the UserFactory is called there is no place to store
+        // the field type 'name' in the Users model. Plan accordingly
+
+        // Persist the Data
+        auth()->user()->projects()->create($attributes);
+
+        // Sanity Check if you want to see what comes back in $attributes
+//        dd($attributes);
+
+        // Persist the Data
+        // Project::create($attributes);
 
 
-        //redirect
+        // Redirect the User
         return redirect('/projects');
     }
 }

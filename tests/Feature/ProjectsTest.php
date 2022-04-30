@@ -14,11 +14,23 @@ class ProjectsTest extends TestCase
 {
    use WithFaker, RefreshDatabase;
 
+
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
+
+    public function testsProjectRequiresOwner()
+    {
+        // $this->withoutExceptionHandling();
+
+        $attributes = Project::factory()->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
     public function testUserCanBeRegister()
     {
         $attributes = [
@@ -60,12 +72,11 @@ class ProjectsTest extends TestCase
             ->assertHasErrors();
     }
 
-
-
-
     public function testUserCanCreateProject()
     {
         $this->withoutExceptionHandling();
+
+        $this->actingAs(User::factory()->create());
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -82,13 +93,19 @@ class ProjectsTest extends TestCase
 
     public function testsProjectRequiresTitle()
     {
+        $this->actingAs(User::factory()->create());
+
         $attributes = Project::factory('\App\Project')->raw(['title' => '']);
+
         $this->post('/projects', $attributes)->assertSessionHasErrors('title');
     }
 
     public function testsProjectRequiresDescription()
     {
+        $this->actingAs(User::factory()->create());
+
         $attributes = Project::factory('\App\Project')->raw(['description' => '']);
+
         $this->post('/projects', [])->assertSessionHasErrors('description');
     }
 
@@ -102,12 +119,4 @@ class ProjectsTest extends TestCase
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
-
-    public function testsProjectRequiresOwner()
-    {
-//        $this->withoutExceptionHandling();
-        $attributes = Project::factory()->raw(['owner_id' => null]);
-        $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
-    }
-
 }
