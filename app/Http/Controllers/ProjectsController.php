@@ -9,7 +9,8 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $projects = auth()->user()->projects;
+
         return view('projects.index', compact('projects'));
     }
 
@@ -18,6 +19,11 @@ class ProjectsController extends Controller
     // Check the web.php /projects/{project}
     public function show(Project $project)
     {
+
+        if(auth()->user()->isNot($project->owner))
+        {
+            abort(403);
+        }
 
         // Before the Route/Model Binding --> Cool HUH!
         // $project = Project::findOrFail(request('project'));

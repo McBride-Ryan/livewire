@@ -111,7 +111,9 @@ class ProjectsTest extends TestCase
 
     public function testsUserCanViewProject()
     {
-//        $this->withoutExceptionHandling();
+        $this->be(User::factory()->create());
+
+        $this->withoutExceptionHandling();
 
         $project = Project::factory('\App\Project')->create();
 
@@ -119,4 +121,41 @@ class ProjectsTest extends TestCase
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
+
+
+    public function testsGuestsCannotCreateProjects()
+    {
+        $attributes=Project::factory()->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
+    public function testsGuestsCannotViewProjects()
+    {
+        $attributes=Project::factory()->raw();
+
+        $this->get('/projects', $attributes)->assertRedirect('login');
+    }
+
+    public function testsGuestsCannotViewSingleProjects()
+    {
+        $project = Project::factory()->create();
+
+        $this->get($project->path())->assertRedirect('login');
+    }
+
+    public function testsAuthUserCannotViewProjectOfOthers()
+    {
+
+        $this->be(User::factory()->create());
+
+//        $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+
+        $this->get($project->path())->assertStatus(403);
+
+
+    }
+
 }
