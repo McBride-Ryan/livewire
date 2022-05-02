@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    @livewire('auth.register')
+    @livewire('auth.registration')
 @endsection

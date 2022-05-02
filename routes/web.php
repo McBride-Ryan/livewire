@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function () {
+Route::get('/registration', function () {
     return view('index');
 });
 

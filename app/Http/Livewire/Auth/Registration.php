@@ -3,7 +3,7 @@ namespace App\Http\Livewire\Auth;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
-class Register extends Component
+class Registration extends Component
 {
     public $email = '';
     public $password = '';
@@ -38,11 +38,11 @@ class Register extends Component
 
         auth()->login($user);
 
-        return redirect('/register');
+        return redirect('/registration');
     }
 
     public function render()
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.registration');
     }
 }
